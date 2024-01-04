@@ -70,5 +70,26 @@ class ScoreCounterTest {
         assertEquals(73, sc.countScore(game))
     }
 
-    private fun getGame(startIndex: Int) = (startIndex..20).map { (it % 6).digitToChar() }.toTypedArray()
+    @Test
+    fun `check last spare`() {
+        val sc = ScoreCounter()
+        // modulo 6 is taken to have a valid game, where spare and strikes are not present
+        var game = getGame(1)
+        // make last throw spare
+        game[19] = '/'
+        game = game + arrayOf('5')
+        assertEquals(60, sc.countScore(game))
+    }
+
+    @Test
+    fun `check last strike`() {
+        val sc = ScoreCounter()
+        // modulo 6 is taken to have a valid game, where spare and strikes are not present
+        var game = getGame(1, 18)
+        // make last throw strike
+        game = game + arrayOf('X', '5', '4')
+        assertEquals(64, sc.countScore(game))
+    }
+
+    private fun getGame(startIndex: Int, endIndex: Int = 20) = (startIndex..endIndex).map { (it % 6).digitToChar() }.toTypedArray()
 }
