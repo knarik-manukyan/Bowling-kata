@@ -6,7 +6,27 @@ class ScoreCounterTest {
     fun `check simple case with no spare and strike`() {
         val sc = ScoreCounter()
         // modulo 6 is taken to have a valid game, where spare and strikes are not present
-        val game = (0..19).map { (it%6).digitToChar() }.toTypedArray()
-        assertEquals(46, sc.countScore(game))
+        val game = (1..20).map { (it%6).digitToChar() }.toTypedArray()
+        assertEquals(48, sc.countScore(game))
+    }
+
+    @Test
+    fun `check spare without bonus`() {
+        val sc = ScoreCounter()
+        val game = (1..20).map { (it%6).digitToChar() }.toTypedArray()
+        // make second throw spare
+        game[1] = '/'
+        assertEquals(55, sc.countScore(game))
+    }
+
+    @Test
+    fun `check strike without bonus`() {
+        val sc = ScoreCounter()
+        // modulo 6 is taken to have a valid game, where spare and strikes are not present
+        val game = (1..20).map { (it%6).digitToChar() }.toTypedArray()
+        // make first throw strike
+        game[0] = 'X'
+        game[1] = '0'
+        assertEquals(55, sc.countScore(game))
     }
 }
