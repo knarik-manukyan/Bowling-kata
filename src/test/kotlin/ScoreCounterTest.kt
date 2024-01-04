@@ -11,12 +11,23 @@ class ScoreCounterTest {
     }
 
     @Test
-    fun `check spare without bonus`() {
+    fun `check spare with bonus`() {
         val sc = ScoreCounter()
         val game = (1..20).map { (it%6).digitToChar() }.toTypedArray()
         // make second throw spare
         game[1] = '/'
-        assertEquals(55, sc.countScore(game))
+        assertEquals(58, sc.countScore(game))
+    }
+
+    @Test
+    fun `check two spare`() {
+        val sc = ScoreCounter()
+        val game = (1..20).map { (it%6).digitToChar() }.toTypedArray()
+        // make second throw spare
+        game[1] = '/'
+        // make forth throw spare
+        game[3] = '/'
+        assertEquals(66, sc.countScore(game))
     }
 
     @Test

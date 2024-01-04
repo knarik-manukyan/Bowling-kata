@@ -11,7 +11,11 @@ class ScoreCounter {
 
     private fun handleNumberScore(singleThrow: Char) = singleThrow.digitToInt()
 
-    private fun handleSpare(throws: Array<Char>, id: Int) = handleStrike() - handleNumberScore(throws[id - 1])
+    private fun handleSpare(throws: Array<Char>, id: Int): Int {
+        val pointsForThisThrow = 10 - handleNumberScore(throws[id - 1])
+        val bonusPoints = handleNumberScore(throws[id + 1])
+        return pointsForThisThrow + bonusPoints
+    }
 
     private fun handleStrike() = 10
 }
