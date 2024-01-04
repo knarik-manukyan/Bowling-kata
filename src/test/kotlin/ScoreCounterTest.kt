@@ -91,5 +91,29 @@ class ScoreCounterTest {
         assertEquals(64, sc.countScore(game))
     }
 
+    @Test
+    fun `check last strike and spare`() {
+        val sc = ScoreCounter()
+        // modulo 6 is taken to have a valid game, where spare and strikes are not present
+        var game = getGame(1, 18)
+        // make last throw strike
+        game = game + arrayOf('X', '5', '/')
+        assertEquals(65, sc.countScore(game))
+    }
+
+    @Test
+    fun `check all strikes`() {
+        val sc = ScoreCounter()
+        var game = (1..12).map { 'X' }.toTypedArray()
+        assertEquals(300, sc.countScore(game))
+    }
+
+    @Test
+    fun `check all spare`() {
+        val sc = ScoreCounter()
+        var game = (0..20).map { if (it % 2 == 0) '5' else '/' }.toTypedArray()
+        assertEquals(150, sc.countScore(game))
+    }
+
     private fun getGame(startIndex: Int, endIndex: Int = 20) = (startIndex..endIndex).map { (it % 6).digitToChar() }.toTypedArray()
 }
