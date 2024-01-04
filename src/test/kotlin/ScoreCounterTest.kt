@@ -34,10 +34,9 @@ class ScoreCounterTest {
     fun `check strike without bonus`() {
         val sc = ScoreCounter()
         // modulo 6 is taken to have a valid game, where spare and strikes are not present
-        val game = (1..20).map { (it%6).digitToChar() }.toTypedArray()
+        var game = (3..20).map { (it%6).digitToChar() }.toTypedArray()
         // make first throw strike
-        game[0] = 'X'
-        game[1] = '0'
+        game = arrayOf('X') + game
         assertEquals(55, sc.countScore(game))
     }
 }
